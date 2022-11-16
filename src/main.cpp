@@ -3,9 +3,13 @@
 
 #include "game/Game.hpp"
 
+// TODO inline what deserves to be
+
 int main() {
     try {
         Game g;
+        g.getWorld()->spawn(std::move(std::make_unique<Animal>(
+            SDL_Rect({0, 0, 100, 100}), g.getRenderer()->getTexture("grass"))));
         g.run();
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;

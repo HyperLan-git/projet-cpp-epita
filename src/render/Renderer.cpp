@@ -1,28 +1,36 @@
 #include "render/Renderer.hpp"
 
-SDL_Texture* img = NULL;
 SDL_Rect rect;
 
 Renderer::Renderer(Window& win, unsigned int flags, int idx) {
     this->renderer = SDL_CreateRenderer(win.getWindow(), idx, flags);
     if (!this->renderer)
         throw std::runtime_error("Could not create renderer !");
-    img = loadImage("resources/textures/herbe.bmp");
-    SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
+    SDL_Texture* tex = addTexture("grass", "resources/textures/herbe.bmp");
+    SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
 }
 
-void Renderer::render(SDL_Surface* surface) {
+void Renderer::render(SDL_Surface* surface, std::unique_ptr<World>& world) {
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->renderer);
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
-    SDL_RenderCopy(renderer, img, NULL, &rect);
-    SDL_SetRenderDrawColor(this->renderer, 0, 255, 255, 255);
-    SDL_RenderDrawRect(this->renderer, &rect);
+    for (auto& e : world->getEntities()) e->draw(this->renderer);
     SDL_RenderPresent(this->renderer);
 }
 
-SDL_Texture* Renderer::loadImage(const char* file) {
-    return SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP(file));
+SDL_Texture* Renderer::addTexture(const std::string& name,
+                                  const std::string& bmp) {
+    SDL_Texture* tex =
+        SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP(bmp.c_str()));
+    this->textures.emplace(name, tex);
+    return tex;
 }
 
-Renderer::~Renderer() { SDL_DestroyRenderer(this->renderer); }
+SDL_Texture* Renderer::getTexture(const std::string& name) {
+    return this->textures[name];
+}
+
+Renderer::~Renderer() {
+    for (auto& iter : this->textures) SDL_DestroyTexture(iter.second);
+    SDL_DestroyRenderer(this->renderer);
+}

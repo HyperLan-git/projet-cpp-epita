@@ -14,9 +14,9 @@ Window::Window(const char* title, int x, int y, int w, int h, Uint32 flags) {
     SDL_AddEventWatch(filter, &(this->closed));
 }
 
-bool Window::shouldClose() { return closed; }
+bool Window::shouldClose() const { return closed; }
 
-int Window::pollEvent(SDL_Event* event) { return SDL_PollEvent(event); }
+int Window::pollEvent(SDL_Event* event) const { return SDL_PollEvent(event); }
 
 SDL_Surface* Window::getSurface() {
     SDL_Surface* result = SDL_GetWindowSurface(this->window);
