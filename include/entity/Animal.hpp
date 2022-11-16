@@ -21,4 +21,5 @@ protected:
     SDL_Rect hitbox;
     SDL_Texture *texture;
     SDL_Point position;
+    int life;
 };

@@ -31,10 +31,10 @@ void Animal::move(int direction, unsigned speed)
         position.x = 0;
     if (position.y < 0)
         position.y = 0;
-    if (position.y >= 600)
-        position.x = 600;
-    if (position.x >= 400)
-        position.x = 400;
+    if (position.x >= 540)
+        position.x = 540;
+    if (position.y >= 380)
+        position.y = 380;
     hitbox.x = position.x;
     hitbox.y = position.y;
 }

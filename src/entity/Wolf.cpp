@@ -4,6 +4,7 @@ Wolf::Wolf(SDL_Rect hitbox, SDL_Texture *texture, SDL_Point position)
     : Animal(hitbox, texture, position)
 {
     framecount = 10;
+    life = 2500;
 }
 
 void Wolf::update()
@@ -14,7 +15,9 @@ void Wolf::update()
         int direction = std::rand() % 4;
         move(direction, 10); // FAST
     }
-    framecount--;
-    if (framecount == 0)
+    if (framecount-- == 0)
         framecount = 100;
+
+    if (life-- == 0)
+        kill();
 }
