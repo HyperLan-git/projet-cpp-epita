@@ -13,6 +13,7 @@ public:
 
     virtual void draw(SDL_Renderer *renderer) override;
     virtual void update() override;
+    virtual void move(int direction, unsigned speed);
 
     virtual ~Animal();
 

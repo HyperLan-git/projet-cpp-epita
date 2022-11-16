@@ -11,6 +11,7 @@ add_executable(main src/main.cpp)
 
 add_library(sources SHARED src/game/Game.cpp src/game/World.cpp
     src/render/Renderer.cpp src/render/Window.cpp
-    src/entity/Entity.cpp src/entity/Animal.cpp)
+    src/entity/Entity.cpp src/entity/Animal.cpp
+    src/entity/Sheep.cpp src/entity/Wolf.cpp)
 
 target_link_libraries(main sources ${SDL2_LIBRARIES})
