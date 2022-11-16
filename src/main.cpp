@@ -5,17 +5,24 @@
 
 // TODO inline what deserves to be
 
-int main() {
-    try {
+int main()
+{
+    try
+    {
         Game g;
         g.getWorld()->spawn(std::move(std::make_unique<Animal>(
-            SDL_Rect({0, 0, 100, 100}), g.getRenderer()->getTexture("grass"))));
+            SDL_Rect({0, 0, 100, 100}), g.getRenderer()->getTexture("grass"),
+            SDL_Point({0, 0}))));
         g.run();
-    } catch (const std::runtime_error& e) {
+    }
+    catch (const std::runtime_error &e)
+    {
         std::cerr << e.what() << std::endl;
         std::cerr << "Cause: " << SDL_GetError() << std::endl;
         return -1;
-    } catch (std::exception e) {
+    }
+    catch (std::exception e)
+    {
         std::cerr << e.what() << std::endl;
         return -1;
     }

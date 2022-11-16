@@ -6,16 +6,18 @@ class Animal;
 
 #include "entity/Entity.hpp"
 
-class Animal : public Entity {
-   public:
-    Animal(SDL_Rect hitbox, SDL_Texture* texture);
+class Animal : public Entity
+{
+public:
+    Animal(SDL_Rect hitbox, SDL_Texture *texture, SDL_Point position);
 
-    virtual void draw(SDL_Renderer* renderer) override;
+    virtual void draw(SDL_Renderer *renderer) override;
     virtual void update() override;
 
     virtual ~Animal();
 
-   protected:
+protected:
     SDL_Rect hitbox;
-    SDL_Texture* texture;
+    SDL_Texture *texture;
+    SDL_Point position;
 };
