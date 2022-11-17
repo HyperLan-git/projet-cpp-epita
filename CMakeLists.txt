@@ -7,6 +7,9 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories($(PROJECT_SOURCE_DIR)/include/)
 
+add_compile_options(-fsanitize=address -g)
+add_link_options(-fsanitize=address -g)
+
 add_executable(main src/main.cpp)
 
 add_library(sources SHARED src/game/Game.cpp src/game/World.cpp
