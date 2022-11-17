@@ -22,4 +22,5 @@ protected:
     SDL_Texture *texture;
     SDL_Point position;
     int life;
+    int framecount;
 };

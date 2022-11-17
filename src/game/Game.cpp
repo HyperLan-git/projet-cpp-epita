@@ -16,6 +16,7 @@ Game::Game()
 
 void Game::run()
 {
+    std::srand(std::time(NULL));
     int spawn = 0;
     while (!this->window->shouldClose())
     {
@@ -27,19 +28,21 @@ void Game::run()
             // SPAWN A RANDOM ANIMAL
             int random = std::rand() % 2;
             int randomX = std::rand() % 540;
-            int ranomdY = std::rand() % 380;
+            int randomY = std::rand() % 380;
+
+            std::cout << random << " | x : " << randomX << ", y : " << randomY << "\n";
 
             if (random == 0)
             {
                 this->world->spawn(std::move(std::make_unique<Sheep>(
-                    SDL_Rect({randomX, ranomdY, 100, 100}), this->renderer->getTexture("grass"),
-                    SDL_Point({randomX, ranomdY}))));
+                    SDL_Rect({randomX, randomY, 100, 100}), this->renderer->getTexture("sheep"),
+                    SDL_Point({randomX, randomY}))));
             }
             if (random == 1)
             {
                 this->world->spawn(std::move(std::make_unique<Wolf>(
-                    SDL_Rect({randomX, ranomdY, 100, 100}), this->renderer->getTexture("grass"),
-                    SDL_Point({randomX, ranomdY}))));
+                    SDL_Rect({randomX, randomY, 100, 100}), this->renderer->getTexture("wolf"),
+                    SDL_Point({randomX, randomY}))));
             }
         }
         spawn++;
