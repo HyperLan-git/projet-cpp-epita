@@ -4,11 +4,13 @@ class Entity;
 
 #include <SDL2/SDL.h>
 
-#include "game/World.hpp"
+#include <memory>
+
+class World;
 
 class Entity {
    public:
-    Entity(std::weak_ptr<World>& world);
+    Entity(std::weak_ptr<World> world);
 
     virtual void draw(SDL_Renderer* renderer) = 0;
     virtual void update() = 0;
@@ -22,3 +24,5 @@ class Entity {
     bool dead = false;
     std::weak_ptr<World> world;
 };
+
+#include "game/World.hpp"

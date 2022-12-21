@@ -9,7 +9,7 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     addTexture("wolf", "resources/textures/wolf.bmp");
 }
 
-void Renderer::render(SDL_Surface *surface, std::unique_ptr<World> &world) {
+void Renderer::render(SDL_Surface *surface, std::shared_ptr<World> &world) {
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->renderer);
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);

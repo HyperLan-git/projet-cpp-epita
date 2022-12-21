@@ -1,6 +1,6 @@
 #include "entity/Sheep.hpp"
 
-Sheep::Sheep(std::weak_ptr<World> &world, SDL_Rect hitbox, SDL_Texture *texture,
+Sheep::Sheep(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
              SDL_Point position)
     : Animal(world, hitbox, texture, position) {
     framecount = 10;

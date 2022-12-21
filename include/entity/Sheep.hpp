@@ -8,7 +8,7 @@ class Sheep;
 
 class Sheep : public Animal {
    public:
-    Sheep(std::weak_ptr<World> &world, SDL_Rect hitbox, SDL_Texture *texture,
+    Sheep(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
           SDL_Point position);
     virtual void update() override;
 };

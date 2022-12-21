@@ -8,7 +8,7 @@ class Animal;
 
 class Animal : public Entity {
    public:
-    Animal(std::weak_ptr<World> &world, SDL_Rect hitbox, SDL_Texture *texture,
+    Animal(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
            SDL_Point position);
 
     virtual void draw(SDL_Renderer *renderer) override;

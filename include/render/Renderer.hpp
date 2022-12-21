@@ -20,7 +20,7 @@ class Renderer : Instance {
    public:
     Renderer(Window& win, unsigned int flags = 0, int idx = -1);
 
-    void render(SDL_Surface* surface, std::unique_ptr<World>& world);
+    void render(SDL_Surface* surface, std::shared_ptr<World>& world);
 
     SDL_Texture* addTexture(const std::string& name, const std::string& bmp);
 

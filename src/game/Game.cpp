@@ -31,16 +31,16 @@ void Game::run() {
                       << "\n";
 
             if (random == 0) {
-                this->world->spawn(std::move(std::make_unique<Sheep>(
-                    SDL_Rect({randomX, randomY, 100, 100}),
-                    this->renderer->getTexture("sheep"),
-                    SDL_Point({randomX, randomY}))));
+                SPAWN_ENTITY(Sheep, this->world,
+                             SDL_Rect({randomX, randomY, 100, 100}),
+                             this->renderer->getTexture("sheep"),
+                             SDL_Point({randomX, randomY}));
             }
             if (random == 1) {
-                this->world->spawn(std::move(std::make_unique<Wolf>(
-                    SDL_Rect({randomX, randomY, 100, 100}),
-                    this->renderer->getTexture("wolf"),
-                    SDL_Point({randomX, randomY}))));
+                SPAWN_ENTITY(Wolf, this->world,
+                             SDL_Rect({randomX, randomY, 100, 100}),
+                             this->renderer->getTexture("wolf"),
+                             SDL_Point({randomX, randomY}));
             }
         }
         spawn++;

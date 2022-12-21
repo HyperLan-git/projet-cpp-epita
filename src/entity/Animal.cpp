@@ -1,6 +1,6 @@
 #include "entity/Animal.hpp"
 
-Animal::Animal(std::weak_ptr<World> &world, SDL_Rect hitbox,
+Animal::Animal(std::weak_ptr<World> world, SDL_Rect hitbox,
                SDL_Texture *texture, SDL_Point position)
     : Entity(world), hitbox(hitbox), texture(texture), position(position) {}
 
@@ -13,16 +13,16 @@ void Animal::update() {}
 void Animal::move(int direction, unsigned speed) {
     switch (direction) {
         case 0:  // UP
-            position.y -= speed * 2;
+            position.y -= speed;
             break;
         case 1:  // DOWN
-            position.y += speed * 2;
+            position.y += speed;
             break;
         case 2:  // LEFT
-            position.x -= speed * 2;
+            position.x -= speed;
             break;
         case 3:  // RIGHT
-            position.x += speed * 2;
+            position.x += speed;
             break;
     }
     if (position.x < 0) position.x = 0;
