@@ -1,6 +1,6 @@
 #include "entity/Entity.hpp"
 
-Entity::Entity() {}
+Entity::Entity(std::weak_ptr<World> world) : world(world) {}
 
 bool Entity::isDead() const { return this->dead; }
 

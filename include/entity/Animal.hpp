@@ -6,10 +6,10 @@ class Animal;
 
 #include "entity/Entity.hpp"
 
-class Animal : public Entity
-{
-public:
-    Animal(SDL_Rect hitbox, SDL_Texture *texture, SDL_Point position);
+class Animal : public Entity {
+   public:
+    Animal(std::weak_ptr<World> &world, SDL_Rect hitbox, SDL_Texture *texture,
+           SDL_Point position);
 
     virtual void draw(SDL_Renderer *renderer) override;
     virtual void update() override;
@@ -17,7 +17,7 @@ public:
 
     virtual ~Animal();
 
-protected:
+   protected:
     SDL_Rect hitbox;
     SDL_Texture *texture;
     SDL_Point position;

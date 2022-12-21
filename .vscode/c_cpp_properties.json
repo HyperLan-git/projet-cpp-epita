@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/include",
-                "/usr/local/include/SDL2"
+                "/usr/local/include/SDL2",
+                "${default}"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

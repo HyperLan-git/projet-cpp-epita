@@ -4,7 +4,7 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     this->renderer = SDL_CreateRenderer(win.getWindow(), idx, flags);
     if (!this->renderer)
         throw std::runtime_error("Could not create renderer !");
-    SDL_Texture *tex = addTexture("grass", "resources/textures/grass.bmp");
+    addTexture("grass", "resources/textures/grass.bmp");
     addTexture("sheep", "resources/textures/sheep.bmp");
     addTexture("wolf", "resources/textures/wolf.bmp");
 }
