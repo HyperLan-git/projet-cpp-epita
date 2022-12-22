@@ -13,6 +13,7 @@ class Window : Instance {
     Window(const char* title, int x, int y, int w, int h, Uint32 flags);
 
     bool shouldClose() const;
+    void close();
 
     int pollEvent(SDL_Event* event = NULL) const;
 

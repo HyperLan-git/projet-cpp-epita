@@ -1,6 +1,4 @@
 #pragma once
-#include <cstdlib>
-#include <iostream>
 
 class Sheep;
 
@@ -9,6 +7,12 @@ class Sheep;
 class Sheep : public Animal {
    public:
     Sheep(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
-          SDL_Point position);
+          SDL_Point position, bool male);
     virtual void update() override;
+    virtual bool isPrey() const override;
+    virtual bool isSheep() const override;
+
+   private:
+    unsigned luv = 0;
+    std::weak_ptr<Entity> loved;
 };

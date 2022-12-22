@@ -11,4 +11,7 @@ class Wolf : public Animal {
     Wolf(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
          SDL_Point position);
     virtual void update() override;
+
+   private:
+    std::weak_ptr<Entity> prey;
 };
