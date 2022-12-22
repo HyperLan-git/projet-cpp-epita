@@ -50,32 +50,6 @@ void Game::run() {
         if ((++counter % 60) == 0)
             std::cout << "entities : " << this->world->getEntities().size()
                       << std::endl;
-#ifdef spawn
-        if (spawn == 0) {
-            // SPAWN A RANDOM ANIMAL
-            int random = std::rand() % 2;
-            int randomX = std::rand() % 540;
-            int randomY = std::rand() % 380;
-
-            std::cout << random << " | x : " << randomX << ", y : " << randomY
-                      << "\n";
-
-            if (random == 0) {
-                SPAWN_ENTITY(Sheep, this->world,
-                             SDL_Rect({randomX, randomY, 100, 100}),
-                             this->renderer->getTexture("sheep"),
-                             SDL_Point({randomX, randomY}), std::rand() % 2);
-            }
-            if (random == 1) {
-                SPAWN_ENTITY(Wolf, this->world,
-                             SDL_Rect({randomX, randomY, 100, 100}),
-                             this->renderer->getTexture("wolf"),
-                             SDL_Point({randomX, randomY}));
-            }
-        }
-        spawn++;
-        if (spawn == 60) spawn = 0;
-#endif
 
         this->world->update();
 
