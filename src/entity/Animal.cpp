@@ -22,24 +22,12 @@ void Animal::update() {
 bool Animal::collidesWith(const std::shared_ptr<Entity> &other) const {
     if (!other) return false;
     SDL_Point pos = other->getPosition();
+    long long diffX = other->getPosition().x - this->position.x,
+              diffY = other->getPosition().y - this->position.y;
+    // std::cout << "dx : " << diffX << "dy : " << diffY << std::endl;
+    int len = std::sqrt(diffX * diffX + diffY * diffY);
+    // std::cout << "dist : " << len << std::endl;
     return SDL_PointInRect(&pos, &this->hitbox);
-}
-
-void Animal::move(int direction, unsigned speed) {
-    switch (direction) {
-        case 0:  // UP
-            position.y -= speed;
-            break;
-        case 1:  // DOWN
-            position.y += speed;
-            break;
-        case 2:  // LEFT
-            position.x -= speed;
-            break;
-        case 3:  // RIGHT
-            position.x += speed;
-            break;
-    }
 }
 
 Animal::~Animal() {}

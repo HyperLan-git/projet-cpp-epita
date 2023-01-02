@@ -41,6 +41,9 @@ class Entity {
 
     virtual ~Entity();
 
+    friend bool operator==(const Entity& e, const Entity& e2);
+    friend bool operator!=(const Entity& e, const Entity& e2);
+
    protected:
     SDL_Point position;
 
@@ -48,12 +51,13 @@ class Entity {
     void chase(const std::shared_ptr<Entity>& other, int speed);
     void flee(const std::shared_ptr<Entity>& other, int speed);
 
-   protected:
     std::weak_ptr<World> world;
 
    private:
     bool dead = false;
     bool male;
 };
+
+int dist(const SDL_Point& p1, const SDL_Point& p2);
 
 #include "game/World.hpp"

@@ -16,8 +16,6 @@ class Animal : public Entity {
     virtual bool collidesWith(
         const std::shared_ptr<Entity> &other) const override;
 
-    void move(int direction, unsigned speed);
-
     virtual ~Animal();
 
    protected:

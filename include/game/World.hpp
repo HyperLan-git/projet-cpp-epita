@@ -47,7 +47,7 @@ class World : Instance {
     ~World();
 
    private:
-    inline void spawnNow(std::shared_ptr<Entity>&& entity) {
+    inline void spawnNow(const std::shared_ptr<Entity>&& entity) {
         entities.push_back(entity);
     }
     std::deque<std::shared_ptr<Entity>> toAdd;

@@ -7,6 +7,7 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     addTexture("grass", "resources/textures/grass.bmp");
     addTexture("sheep", "resources/textures/sheep.bmp");
     addTexture("wolf", "resources/textures/wolf.bmp");
+    addTexture("shepherd", "resources/textures/shepherd.bmp");
 }
 
 void Renderer::render(SDL_Surface *surface, std::shared_ptr<World> &world) {

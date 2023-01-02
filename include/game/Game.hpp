@@ -3,6 +3,7 @@
 
 class Game;
 
+#include "game/InputHandler.hpp"
 #include "game/World.hpp"
 #include "render/Renderer.hpp"
 #include "render/Window.hpp"
@@ -26,5 +27,6 @@ class Game : Instance {
     std::shared_ptr<World> world;
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<Window> window;
+    std::shared_ptr<InputHandler> inputHandler;
     SDL_Surface *surface;
 };

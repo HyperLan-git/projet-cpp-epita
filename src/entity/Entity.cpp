@@ -14,15 +14,15 @@ void Entity::wander(unsigned speed) {
 
 void Entity::chase(const std::shared_ptr<Entity>& other, int speed) {
     int diffX = other->getPosition().x - this->position.x,
-        diffY = other->getPosition().y - this->position.y;
+        diffY = -other->getPosition().y + this->position.y;
     if (diffX == diffY && diffY == 0) {
         if (speed < 0) {
-            this->position.x -= std::rand() % speed - 10;
-            this->position.y -= std::rand() % speed - 10;
+            this->position.x -= std::rand() % speed;
+            this->position.y -= std::rand() % speed;
         }
         return;
     }
-    int len = std::sqrt(diffX * diffX + diffY * diffY);
+    int len = (int)std::sqrt(diffX * diffX + diffY * diffY);
     if (len < speed && speed > 0) {
         this->position.x = other->position.x;
         this->position.y = other->position.y;
@@ -44,7 +44,7 @@ const std::shared_ptr<Entity> Entity::getClosest(
         if (e.get() != this) {
             int dX = position.x - e->getPosition().x,
                 dY = position.y - e->getPosition().y;
-            unsigned d = dX * dX + dY * dY;
+            long long d = dX * dX + dY * dY;
             if (d < dist) {
                 res = e;
                 dist = d;
@@ -54,3 +54,12 @@ const std::shared_ptr<Entity> Entity::getClosest(
 }
 
 Entity::~Entity() {}
+
+int dist(const SDL_Point& p1, const SDL_Point& p2) {
+    int diffX = p1.x - p2.x, diffY = p1.y - p2.y;
+
+    return (int)std::sqrt(diffX * diffX + diffY * diffY);
+}
+
+bool operator==(const Entity& e, const Entity& e2) { return &e == &e2; }
+bool operator!=(const Entity& e, const Entity& e2) { return !(e == e2); }

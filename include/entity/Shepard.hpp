@@ -2,12 +2,19 @@
 
 class Shepard;
 
-#include "Entity.hpp"
+#include "Animal.hpp"
+#include "game/InputHandler.hpp"
 
-class Shepard : Entity {
+class Shepard : public Animal {
    public:
-    Shepard(std::weak_ptr<World> world, SDL_Point position, bool male);
-    bool isShepard() const;
+    Shepard(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture *texture,
+            SDL_Point position, bool male,
+            std::weak_ptr<InputHandler> inputHandler);
+
+    virtual void update() override;
+
+    virtual bool isShepard() const override;
 
    private:
+    std::weak_ptr<InputHandler> inputHandler;
 };
