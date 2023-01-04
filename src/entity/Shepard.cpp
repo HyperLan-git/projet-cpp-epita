@@ -6,16 +6,25 @@ Shepard::Shepard(std::weak_ptr<World> world, SDL_Rect hitbox,
     : Animal(world, hitbox, texture, position, male),
       inputHandler(inputHandler) {
     life = 8000;
-    framecount = 10;
+    framecount = 20;
 }
 
 void Shepard::update() {
     if (!inputHandler.expired()) {
         std::shared_ptr<InputHandler> input(inputHandler);
-        if (ISDOWN(input->getStatus(SDLK_UP))) this->position.y -= 3;
-        if (ISDOWN(input->getStatus(SDLK_DOWN))) this->position.y += 3;
-        if (ISDOWN(input->getStatus(SDLK_RIGHT))) this->position.x += 3;
-        if (ISDOWN(input->getStatus(SDLK_LEFT))) this->position.x -= 3;
+        int speed = 3;
+        if (framecount > 0) {
+            speed *= 2;
+            framecount--;
+        }
+        if (ISDOWN(input->getStatus(SDLK_UP))) this->position.y -= speed;
+        if (ISDOWN(input->getStatus(SDLK_DOWN))) this->position.y += speed;
+        if (ISDOWN(input->getStatus(SDLK_RIGHT))) this->position.x += speed;
+        if (ISDOWN(input->getStatus(SDLK_LEFT))) this->position.x -= speed;
+        SDL_Point mousePos = input->getMousePos();
+        if (input->getMouseState() == PRESSED &&
+            SDL_PointInRect(&mousePos, &this->hitbox))
+            this->framecount = 20;
     }
     Animal::update();
 }

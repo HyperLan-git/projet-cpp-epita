@@ -7,6 +7,7 @@ class InputHandler;
 #include <map>
 
 #include "Instance.hpp"
+
 enum KeyStatus { NONE, PRESSED, DOWN, RELEASED };
 
 #define ISDOWN(status) (status == PRESSED || status == DOWN)
