@@ -14,7 +14,7 @@ void Entity::wander(unsigned speed) {
 
 void Entity::chase(const std::shared_ptr<Entity>& other, int speed) {
     int diffX = other->getPosition().x - this->position.x,
-        diffY = -other->getPosition().y + this->position.y;
+        diffY = other->getPosition().y - this->position.y;
     if (diffX == diffY && diffY == 0) {
         if (speed < 0) {
             this->position.x -= std::rand() % speed;

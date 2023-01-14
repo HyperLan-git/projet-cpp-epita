@@ -7,19 +7,19 @@
 Game::Game() {
     if (SDL_Init(SDL_INIT_EVERYTHING))
         throw std::runtime_error("Could not init SDL !");
-    this->window = std::make_unique<Window>("Projet SDL Partie 2", 0, 0, 2000,
+    this->window = std::make_unique<Window>("Projet SDL Partie 2", 0, 0, 1200,
                                             800, SDL_WINDOW_RESIZABLE);
     this->renderer = std::make_unique<Renderer>(
         *window, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    this->world = std::make_unique<World>(2000, 800);
+    this->world = std::make_shared<World>(1200, 800);
     this->surface = this->window->getSurface();
     this->inputHandler = std::make_shared<InputHandler>();
 }
 
 void Game::run() {
     std::srand(std::time(NULL));
-    for (int i = 0; i < 10; i++) {
-        int randomX = std::rand() % 1900;
+    for (int i = 0; i < 4; i++) {
+        int randomX = std::rand() % 1100;
         int randomY = std::rand() % 700;
         SPAWN_ENTITY(Sheep, this->world, SDL_Rect({randomX, randomY, 100, 100}),
                      this->renderer->getTexture("sheep"),
@@ -41,7 +41,7 @@ void Game::run() {
         }
 
         if ((++spawn % delay) == 0) {
-            int randomX = std::rand() % 1900;
+            int randomX = std::rand() % 1100;
             int randomY = std::rand() % 700;
             SPAWN_ENTITY(Wolf, this->world,
                          SDL_Rect({randomX, randomY, 100, 100}),

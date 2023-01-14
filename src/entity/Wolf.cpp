@@ -4,9 +4,8 @@ Wolf::Wolf(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture* texture,
            SDL_Point position)
     : Animal(world, hitbox, texture, position, true) {
     framecount = 10;
-    life = 5000;
+    life = 3000;
 }
-
 void Wolf::update() {
     if (this->world.expired()) return;
     if (--life == 0) this->kill();
@@ -15,20 +14,21 @@ void Wolf::update() {
         constexpr Entity_pred predShepard = [](std::shared_ptr<Entity>& ptr) {
             return ptr->isShepard();
         };
-        std::shared_ptr<Entity> spook =
-            getClosest(w->getEntitiesIf(predShepard));
+        std::vector<std::shared_ptr<Entity>> vec =
+            w->getEntitiesIf(predShepard);
+        std::shared_ptr<Entity> spook = getClosest(vec);
 
         if (spook && dist(this->getPosition(), spook->getPosition()) < 300) {
             // Scared by shepard or shepard dog
             flee(spook, 100);
-        } else if (life < 4500) {
+        } else if (life < 2800) {
             // HUNGRY
             if (!prey.expired()) {
                 std::shared_ptr<Entity> e(prey);
                 if (collidesWith(e)) {
                     flee(e, 100);
                     e->kill();
-                    life += 500;
+                    life += 200;
                 } else
                     chase(e, 100);
             } else {

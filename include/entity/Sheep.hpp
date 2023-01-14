@@ -13,6 +13,5 @@ class Sheep : public Animal {
     virtual bool isSheep() const override;
 
    private:
-    unsigned luv = 0;
-    std::weak_ptr<Entity> loved;
+    int luvTimer = 300;
 };

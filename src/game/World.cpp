@@ -18,9 +18,9 @@ void World::update() {
 
 std::vector<std::shared_ptr<Entity>> World::getEntitiesIf(
     Entity_pred predicate) {
-    std::vector<std::shared_ptr<Entity>> result(this->entities);
-    std::copy_if(this->entities.begin(), this->entities.end(), result.begin(),
-                 predicate);
+    std::vector<std::shared_ptr<Entity>> result;
+    std::copy_if(this->entities.begin(), this->entities.end(),
+                 std::back_inserter(result), predicate);
     return result;
 }
 

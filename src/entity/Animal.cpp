@@ -11,22 +11,17 @@ void Animal::draw(SDL_Renderer *renderer) {
 void Animal::update() {
     if (this->world.expired()) return;
     std::shared_ptr<World> w(this->world);
-    int maxX = w->getWidth() - this->hitbox.w,
-        maxY = w->getHeight() - this->hitbox.h;
-    position.x = std::clamp(position.x, 0, maxX);
-    position.y = std::clamp(position.y, 0, maxY);
-    hitbox.x = position.x;
-    hitbox.y = position.y;
+    int maxX = w->getWidth() - this->hitbox.w / 2,
+        maxY = w->getHeight() - this->hitbox.h / 2;
+    position.x = std::clamp(position.x, this->hitbox.w / 2, maxX);
+    position.y = std::clamp(position.y, this->hitbox.h / 2, maxY);
+    hitbox.x = position.x - hitbox.w / 2;
+    hitbox.y = position.y - hitbox.h / 2;
 }
 
 bool Animal::collidesWith(const std::shared_ptr<Entity> &other) const {
     if (!other) return false;
     SDL_Point pos = other->getPosition();
-    long long diffX = other->getPosition().x - this->position.x,
-              diffY = other->getPosition().y - this->position.y;
-    // std::cout << "dx : " << diffX << "dy : " << diffY << std::endl;
-    int len = std::sqrt(diffX * diffX + diffY * diffY);
-    // std::cout << "dist : " << len << std::endl;
     return SDL_PointInRect(&pos, &this->hitbox);
 }
 

@@ -7,12 +7,14 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     addTexture("grass", "resources/textures/grass.bmp");
     addTexture("sheep", "resources/textures/sheep.bmp");
     addTexture("wolf", "resources/textures/wolf.bmp");
+    // TODO addTexture("shepherd_dog", "resources/textures/shepherd_dog.bmp");
     addTexture("shepherd", "resources/textures/shepherd.bmp");
 }
 
 void Renderer::render(SDL_Surface *surface, std::shared_ptr<World> &world) {
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->renderer);
+    // TODO draw grass
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
     for (auto &e : world->getEntities()) e->draw(this->renderer);
     SDL_RenderPresent(this->renderer);

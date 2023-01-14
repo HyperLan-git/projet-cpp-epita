@@ -8,35 +8,30 @@ Sheep::Sheep(std::weak_ptr<World> world, SDL_Rect hitbox, SDL_Texture* texture,
 }
 
 void Sheep::update() {
-    if (this->world.expired()) return;
-    std::shared_ptr<World> w(this->world);
-    auto& e = getClosest(w->getEntities());
-    if (e && collidesWith(e)) flee(e, 200);
-    if ((++framecount %= 100) == 0)
-        if (!loved.expired()) {
-            std::shared_ptr<Entity> love(loved);
-            chase(love, 50);
-            if (collidesWith(love)) {
-                std::shared_ptr<World> w(this->world);
-                SPAWN_ENTITY(Sheep, w, SDL_Rect(this->hitbox), this->texture,
-                             SDL_Point(this->position), std::rand() % 2);
-                loved.reset();
-            }
-        } else {
-            wander(50);
-            if ((++luv % 5) == 2 && (std::rand() % 4 == 0)) {
-                constexpr Entity_pred predF = [](std::shared_ptr<Entity>& ptr) {
-                    return ptr->isSheep() && !ptr->isMale();
-                };
-                constexpr Entity_pred predM = [](std::shared_ptr<Entity>& ptr) {
-                    return ptr->isSheep() && ptr->isMale();
-                };
-                auto v =
-                    std::move(w->getEntitiesIf(this->isMale() ? predF : predM));
-                std::shared_ptr<Entity> e = std::move(getClosest(v));
-                this->loved = std::weak_ptr<Entity>(e);
+    if (luvTimer > 0) luvTimer--;
+    if ((++framecount %= 100) == 0) {
+        if (this->world.expired()) return;
+        std::shared_ptr<World> w(this->world);
+        if (!isMale() && luvTimer == 0 && std::rand() % 3 == 0) {
+            constexpr Entity_pred predM = [](std::shared_ptr<Entity>& ptr) {
+                return ptr->isSheep() && ptr->isMale();
+            };
+            auto v = w->getEntitiesIf(predM);
+            const std::shared_ptr<Entity>& e = getClosest(v);
+            if (collidesWith(e)) {
+                luvTimer = 600;
+                SPAWN_ENTITY(Sheep, w, this->hitbox, this->texture,
+                             this->position, std::rand() % 2);
             }
         }
+        wander(50);
+
+        constexpr Entity_pred predFriendly = [](std::shared_ptr<Entity>& ptr) {
+            return ptr->isPrey() || ptr->isShepard();
+        };
+        auto& e = getClosest(w->getEntitiesIf(predFriendly));
+        if (e && collidesWith(e)) flee(e, 50);
+    }
     Animal::update();
 }
 
