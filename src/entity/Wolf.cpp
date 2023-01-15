@@ -11,15 +11,15 @@ void Wolf::update() {
     if (--life == 0) this->kill();
     if ((++framecount %= 100) == 0) {
         std::shared_ptr<World> w(this->world);
-        constexpr Entity_pred predShepard = [](std::shared_ptr<Entity>& ptr) {
-            return ptr->isShepard();
+        constexpr Entity_pred predSheperd = [](std::shared_ptr<Entity>& ptr) {
+            return ptr->isSheperd();
         };
         std::vector<std::shared_ptr<Entity>> vec =
-            w->getEntitiesIf(predShepard);
+            w->getEntitiesIf(predSheperd);
         std::shared_ptr<Entity> spook = getClosest(vec);
 
-        if (spook && dist(this->getPosition(), spook->getPosition()) < 300) {
-            // Scared by shepard or shepard dog
+        if (spook && dist(this->getPosition(), spook->getPosition()) < 200) {
+            // Scared by sheperd or sheperd dog
             flee(spook, 100);
         } else if (life < 2800) {
             // HUNGRY

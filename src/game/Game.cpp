@@ -1,7 +1,7 @@
 #include "game/Game.hpp"
 
 #include "entity/Sheep.hpp"
-#include "entity/Shepard.hpp"
+#include "entity/Sheperd.hpp"
 #include "entity/Wolf.hpp"
 
 Game::Game() {
@@ -28,7 +28,7 @@ void Game::run() {
 
     int spawn = 1, delay = 500;
     int counter = 0;
-    SPAWN_ENTITY(Shepard, this->world, SDL_Rect({0, 0, 100, 100}),
+    SPAWN_ENTITY(Sheperd, this->world, SDL_Rect({0, 0, 100, 100}),
                  this->renderer->getTexture("shepherd"), SDL_Point(),
                  std::rand() % 2,
                  std::weak_ptr<InputHandler>(this->inputHandler));

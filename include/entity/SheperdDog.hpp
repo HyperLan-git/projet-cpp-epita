@@ -1,15 +1,15 @@
 #pragma once
 
-class ShepardDog;
+class SheperdDog;
 
 #include "Animal.hpp"
 
-class ShepardDog : public Animal {
+class SheperdDog : public Animal {
    public:
-    ShepardDog(std::weak_ptr<World> world, SDL_Rect hitbox,
+    SheperdDog(std::weak_ptr<World> world, SDL_Rect hitbox,
                SDL_Texture *texture, SDL_Point position, bool male);
 
     virtual void update() override;
 
-    virtual bool isShepard() const override;
+    virtual bool isSheperd() const override;
 };

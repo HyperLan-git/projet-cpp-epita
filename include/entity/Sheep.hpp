@@ -14,4 +14,5 @@ class Sheep : public Animal {
 
    private:
     int luvTimer = 300;
+    std::weak_ptr<Entity> loved;
 };

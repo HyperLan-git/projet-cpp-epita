@@ -7,7 +7,7 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     addTexture("grass", "resources/textures/grass.bmp");
     addTexture("sheep", "resources/textures/sheep.bmp");
     addTexture("wolf", "resources/textures/wolf.bmp");
-    // TODO addTexture("shepherd_dog", "resources/textures/shepherd_dog.bmp");
+    addTexture("shepherd_dog", "resources/textures/dog.bmp");
     addTexture("shepherd", "resources/textures/shepherd.bmp");
 }
 

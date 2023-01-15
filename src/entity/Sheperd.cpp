@@ -1,6 +1,6 @@
-#include "entity/Shepard.hpp"
+#include "entity/Sheperd.hpp"
 
-Shepard::Shepard(std::weak_ptr<World> world, SDL_Rect hitbox,
+Sheperd::Sheperd(std::weak_ptr<World> world, SDL_Rect hitbox,
                  SDL_Texture *texture, SDL_Point position, bool male,
                  std::weak_ptr<InputHandler> inputHandler)
     : Animal(world, hitbox, texture, position, male),
@@ -9,7 +9,7 @@ Shepard::Shepard(std::weak_ptr<World> world, SDL_Rect hitbox,
     framecount = 20;
 }
 
-void Shepard::update() {
+void Sheperd::update() {
     if (!inputHandler.expired()) {
         std::shared_ptr<InputHandler> input(inputHandler);
         int speed = 3;
@@ -29,4 +29,4 @@ void Shepard::update() {
     Animal::update();
 }
 
-bool Shepard::isShepard() const { return true; }
+bool Sheperd::isSheperd() const { return true; }

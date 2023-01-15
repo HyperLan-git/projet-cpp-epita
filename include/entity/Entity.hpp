@@ -29,7 +29,7 @@ class Entity {
     virtual bool isPrey() const { return false; }
 
     // Scares off predators
-    virtual bool isShepard() const { return false; }
+    virtual bool isSheperd() const { return false; }
 
     // Can breed with another sheep
     virtual bool isSheep() const { return false; }
