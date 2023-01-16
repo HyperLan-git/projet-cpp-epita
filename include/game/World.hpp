@@ -23,8 +23,9 @@ class World : Instance {
 
     void update();
 
-    inline void spawn(std::shared_ptr<Entity>&& entity) {
+    inline std::shared_ptr<Entity>& spawn(std::shared_ptr<Entity>&& entity) {
         toAdd.push_back(entity);
+        return toAdd.back();
     }
 
     inline const std::vector<std::shared_ptr<Entity>>& getEntities() const {

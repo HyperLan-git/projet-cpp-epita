@@ -13,8 +13,15 @@ void Entity::wander(unsigned speed) {
 }
 
 void Entity::chase(const std::shared_ptr<Entity>& other, int speed) {
-    int diffX = other->getPosition().x - this->position.x,
-        diffY = other->getPosition().y - this->position.y;
+    chase(other->position, speed);
+}
+
+void Entity::flee(const std::shared_ptr<Entity>& other, int speed) {
+    chase(other, -speed);
+}
+
+void Entity::chase(const SDL_Point p, int speed) {
+    int diffX = p.x - this->position.x, diffY = p.y - this->position.y;
     if (diffX == diffY && diffY == 0) {
         if (speed < 0) {
             this->position.x -= std::rand() % speed;
@@ -24,17 +31,14 @@ void Entity::chase(const std::shared_ptr<Entity>& other, int speed) {
     }
     int len = (int)std::sqrt(diffX * diffX + diffY * diffY);
     if (len < speed && speed > 0) {
-        this->position.x = other->position.x;
-        this->position.y = other->position.y;
+        this->position.x = p.x;
+        this->position.y = p.y;
     } else {
         this->position.x += (diffX * speed) / len;
         this->position.y += (diffY * speed) / len;
     }
 }
-
-void Entity::flee(const std::shared_ptr<Entity>& other, int speed) {
-    chase(other, -speed);
-}
+void Entity::flee(const SDL_Point p, int speed) { chase(p, -speed); }
 
 const std::shared_ptr<Entity> Entity::getClosest(
     const std::vector<std::shared_ptr<Entity>>& entities) const {

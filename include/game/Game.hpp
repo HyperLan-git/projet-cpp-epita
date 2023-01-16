@@ -3,6 +3,7 @@
 
 class Game;
 
+#include "entity/ShepherdDog.hpp"
 #include "game/InputHandler.hpp"
 #include "game/World.hpp"
 #include "render/Renderer.hpp"
@@ -29,4 +30,6 @@ class Game : Instance {
     std::unique_ptr<Window> window;
     std::shared_ptr<InputHandler> inputHandler;
     SDL_Surface *surface;
+
+    int frames;
 };

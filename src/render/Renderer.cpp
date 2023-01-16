@@ -11,11 +11,18 @@ Renderer::Renderer(Window &win, unsigned int flags, int idx) {
     addTexture("shepherd", "resources/textures/shepherd.bmp");
 }
 
+#define GRASS_SIZE 100
+
 void Renderer::render(SDL_Surface *surface, std::shared_ptr<World> &world) {
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->renderer);
-    // TODO draw grass
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+    SDL_Texture *grass = this->textures["grass"];
+    for (int x = 0; x < world->getWidth(); x += GRASS_SIZE)
+        for (int y = 0; y < world->getHeight(); y += GRASS_SIZE) {
+            SDL_Rect rect({x, y, GRASS_SIZE, GRASS_SIZE});
+            SDL_RenderCopy(this->renderer, grass, NULL, &rect);
+        }
     for (auto &e : world->getEntities()) e->draw(this->renderer);
     SDL_RenderPresent(this->renderer);
 }

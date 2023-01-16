@@ -13,6 +13,6 @@ class Sheep : public Animal {
     virtual bool isSheep() const override;
 
    private:
-    int luvTimer = 300;
+    int luvTimer;
     std::weak_ptr<Entity> loved;
 };

@@ -1,7 +1,7 @@
 #include "game/Game.hpp"
 
 #include "entity/Sheep.hpp"
-#include "entity/Sheperd.hpp"
+#include "entity/Shepherd.hpp"
 #include "entity/Wolf.hpp"
 
 Game::Game() {
@@ -26,13 +26,26 @@ void Game::run() {
                      SDL_Point({randomX, randomY}), std::rand() % 2);
     }
 
-    int spawn = 1, delay = 500;
+    int spawn = 1, delay = 1200;
     int counter = 0;
-    SPAWN_ENTITY(Sheperd, this->world, SDL_Rect({0, 0, 100, 100}),
-                 this->renderer->getTexture("shepherd"), SDL_Point(),
-                 std::rand() % 2,
-                 std::weak_ptr<InputHandler>(this->inputHandler));
-    while (!this->window->shouldClose()) {
+    std::weak_ptr<Entity> shepherd(SPAWN_ENTITY(
+        Shepherd, this->world,
+        SDL_Rect({world->getWidth() / 2, world->getHeight() / 2, 100, 100}),
+        this->renderer->getTexture("shepherd"),
+        SDL_Point({world->getWidth() / 2, world->getHeight() / 2}),
+        std::rand() % 2, std::weak_ptr<InputHandler>(this->inputHandler)));
+
+    for (int i = 0; i < 2; i++) {
+        SDL_Point p = {world->getWidth() / 2,
+                       world->getHeight() / 2 - 100 + i * 200};
+        SPAWN_ENTITY(ShepherdDog, this->world, SDL_Rect({p.x, p.y, 100, 100}),
+                     this->renderer->getTexture("shepherd_dog"), p,
+                     std::rand() % 2, shepherd, i == 0 ? WEST : EAST);
+    }
+    long score = 0;
+    int seconds = 90;
+    frames = 60 * seconds;
+    while (!this->window->shouldClose() && --frames > 0) {
         SDL_Event ev;
         while (this->window->pollEvent(&ev)) {
             if (ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_ESCAPE)
@@ -47,14 +60,21 @@ void Game::run() {
                          SDL_Rect({randomX, randomY, 100, 100}),
                          this->renderer->getTexture("wolf"),
                          SDL_Point({randomX, randomY}));
-            if (delay > 10) delay -= 4;
         }
+        constexpr Entity_pred predSheep = [](std::shared_ptr<Entity>& ptr) {
+            return ptr->isSheep();
+        };
+
+        score += world->getEntitiesIf(predSheep).size();
 
         this->world->update();
         this->inputHandler->update();
 
         this->renderer->render(this->surface, this->world);
     }
+    std::cout << "Score final : "
+              << (float)((int)((score / (float)(60 * seconds)) * 100)) / 100.f
+              << "\nNombre de moutons en moyenne sur la carte." << std::endl;
 }
 
 Game::~Game() { SDL_Quit(); }
