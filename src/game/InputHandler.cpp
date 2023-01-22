@@ -54,7 +54,7 @@ SDL_Point InputHandler::getMousePos() const {
 
 KeyStatus InputHandler::getMouseState() const { return click; }
 
-KeyStatus InputHandler::getStatus(SDL_KeyCode key) const {
+KeyStatus InputHandler::getStatus(SDL_Scancode key) const {
     if (keys.find(key) == keys.end()) return NONE;
     return keys.at(key);
 }

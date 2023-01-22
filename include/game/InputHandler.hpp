@@ -21,7 +21,7 @@ class InputHandler : Instance {
 
     SDL_Point getMousePos() const;
     KeyStatus getMouseState() const;
-    KeyStatus getStatus(SDL_KeyCode key) const;
+    KeyStatus getStatus(SDL_Scancode key) const;
 
    private:
     std::map<int, KeyStatus> keys;
